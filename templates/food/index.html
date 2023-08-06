@@ -8,6 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>This is just a template</h1>
+{% for item in item_list %}
+    <ul>
+        <li>
+            {{ item.id }} -- {{ item.item_name }}
+        </li>
+    </ul>
+{% endfor %}
 </body>
 </html>
