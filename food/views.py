@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
 from food.forms import ItemForm
 from food.models import Item
@@ -24,6 +24,17 @@ class IndexClassView(ListView):
 class FoodDetail(DetailView):
     model = Item
     template_name = 'food/detail.html'
+
+
+class CreateItem(CreateView):
+    model = Item
+    fields = ['item_name', 'item_desc', 'item_price', 'item_image']
+    template_name = 'food/item-form.html'
+
+    def form_valid(self, form):
+        form.instance.user_name = self.request.user
+
+        return super().form_valid(form)
 
 
 def item(request):
